@@ -1,6 +1,9 @@
 import random
 import time
+import tkinter as tk
+import tkinter.ttk as ttk
 
+"""
 #Import all the texts
 f = open('Texts', 'r', encoding="utf-8")
 sz = []
@@ -33,22 +36,26 @@ def count_mistakes(given, users_input):
                 mistakes += 1
         return mistakes
 
+print("You Will get a sentence and you will have to type it as fast as you can!\n")
+
 for line in sz:
     num = random.randint(0, len(sz))
     Curr_line = sz[num]
 
     #start timer
-    start_time = time.time()
-    print("Type the following sentence and press Enter when done:")
+    input("Press Enter to start and to finish too!")
     print(Curr_line)
-    input("Press Enter to start!")
+    start_time = time.time()
+
+    #user input
     typed = input("Type here: ")
-    mistakes = count_mistakes(Curr_line, typed)
 
     #end timer
     end_time = time.time()
     elapsed_time = end_time - start_time #Calculate the time it took to type the sentence
 
+
+    mistakes = count_mistakes(Curr_line, typed)
 
     if mistakes == 0:
         print(f"You typed the sentence correctly!\n")
@@ -57,37 +64,17 @@ for line in sz:
 
 
 """
-for line in sz:
-    # Get a random line then BUMMM
-    num = random.randint(0, len(sz))
-    Curr_line = sz[num]
-    print("Type the following sentence and press Enter when done:")
-    ready = input("Press Enter to start!")
-    print(Curr_line)
+class MyGUI:
+    def __init__(self):
+        self.root = tk.Tk()
 
-    start_time = time.time()
-    user_input = input("Type here: ")
-    end_time = time.time()
-    elapsed_time = end_time - start_time #Calculate the time it took to type the sentence
+        self.root.geometry("500x300")
+        self.root.title("Typing Speed Test")
 
-    # Give the user_input the max lenght so it won't be an error in the future that it isn't long enough
-    user_input += len(Curr_line)*" "
-
-    wrong = 0
-    for i, c in enumerate(Curr_line):
-        if c == user_input[i]:
-            pass
-        else:
-            wrong += 1
-
-    if wrong == 0:
-        print(f"You typed the sentence correctly! Your time is {elapsed_time:.2f}!\n")
-    else:
-        print(f"You typed the sentence incorrectly. {wrong} characters were wrong. Your time is {elapsed_time:.2f}!\n")
+        self.label = tk.Label(self.root, text="Typing Speed Test")
+        self.label.pack(padx=10, pady=10)
 
 
-    #print(f"Az első: {sz[num]}; A következő: {sz[num+1]}")
-    sz.remove(sz[num])
-    #print(f"Az első: {sz[num]}; A következő: {sz[num+1]}")
-    
-"""
+        self.root.mainloop()
+
+MyGUI()
