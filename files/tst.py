@@ -71,10 +71,14 @@ class MyGUI:
         self.root.geometry("600x500")
         self.root.title("Typing Speed Test")
 
-        self.label = tk.Label(self.root, text="Typing Speed Test")
+        self.label = tk.Label(self.root, text="You Will get a sentence and you will have to type it as fast as you can!")
         self.label.pack(padx=10, pady=10)
+
+        self.start_button = tk.Button(self.root, text="Start")
+        self.start_button.pack(padx=10, pady=10)
 
 
         self.root.mainloop()
+
 
 MyGUI()
