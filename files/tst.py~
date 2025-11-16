@@ -70,8 +70,8 @@ class MyGUI:
 
         self.root = tk.Tk()
         self.root.config(bg="#fff")
-        #self.root.geometry("800x600")
-        self.root.attributes("-fullscreen", True)
+        self.root.geometry("800x600")
+        #self.root.attributes("-fullscreen", True)
         self.root.title("Typing Speed Test")
 
         style = ttk.Style()
