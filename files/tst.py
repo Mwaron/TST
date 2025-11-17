@@ -74,6 +74,7 @@ class MyGUI:
         self.root.attributes("-fullscreen", True)
         self.root.title("Typing Speed Test")
 
+
         style = ttk.Style()
         style.configure("sb.TButton",
                         font=('Garamond', 25),
@@ -90,6 +91,9 @@ class MyGUI:
                         foreground="black",
                         justify="center")
 
+        self.res_frame = ttk.Frame(self.root)
+
+
         self.Name = ttk.Label(self.root, font=('Arial', 40), text="Typing Speed Test", style="title.TLabel")
         self.Name.pack(padx=20, pady=50)
 
@@ -103,14 +107,22 @@ class MyGUI:
         self.start_button = ttk.Button(self.center_frame, text="Start", command=self.on_start_button, style="sb.TButton")
         self.start_button.pack()
 
-
         self.root.mainloop()
 
     def on_start_button(self):
-        self.center_frame.place_forget()  # This hides the button
+        self.center_frame.place_forget()
+        self.res_frame.place_forget()
 
-        num = random.randint(0, len(sz))
+        # Clear the contents of res_frame so the next results show fresh
+        for widget in self.res_frame.winfo_children():
+            widget.destroy()
+
+        if hasattr(self, "cntext"):
+            self.cntext.destroy()
+
+        num = random.randint(0, len(sz) - 1)
         Curr_line = sz[num]
+        sz.remove(sz[num])
         self.start_time = time.time()
 
         self.cntext = ttk.Label(self.root, text=f"{Curr_line}")
@@ -131,6 +143,7 @@ class MyGUI:
         end_time = time.time()
         elapsed_time = end_time - self.start_time  # Calculate the time it took to type the sentence
 
+        self.res_frame.place(relx=0.5, rely=0.5, anchor='center')  # Center the frame
 
         # Count the mistakes: Original text, user input
         mistakes = count_mistakes(self.cntext["text"], self.user_input.get())
@@ -138,17 +151,20 @@ class MyGUI:
 
         if mistakes == 0:
             #print(f"You typed the sentence correctly!\n")
-            self.result = ttk.Label(self.root, text=f"You typed the sentence correctly and your time is: {elapsed_time:.2f} seconds!")
+            self.result = ttk.Label(self.res_frame, text=f"You typed the sentence correctly and your time is: {elapsed_time:.2f} seconds!")
             self.result.pack(pady=10)
         else:
             #print(f"You typed the sentence incorrectly. {mistakes} characters were wrong.\n")
-            self.result = ttk.Label(self.root, text=f"You typed the sentence incorrectly. {mistakes} characters were wrong and your time is: {elapsed_time:.2f} seconds!")
+            self.result = ttk.Label(self.res_frame, text=f"You typed the sentence incorrectly. {mistakes} characters were wrong and your time is: {elapsed_time:.2f} seconds!")
             self.result.pack(pady=10)
 
-        self.start_button = ttk.Button(self.root, text="Start", command=self.on_start_button, style="sb.TButton")
+
+        self.start_button = ttk.Button(self.res_frame, text="Start", command=self.on_start_button, style="sb.TButton")
         self.start_button.pack(pady=10)
 
-        self.close_button = ttk.Button(self.root, text="Close", command=self.root.quit, style="sb.TButton")
+        self.close_button = ttk.Button(self.res_frame, text="Close", command=self.root.quit, style="sb.TButton")
         self.close_button.pack(pady=10)
+
+
 
 MyGUI()
