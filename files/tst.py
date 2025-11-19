@@ -69,26 +69,30 @@ class MyGUI:
     def __init__(self):
 
         self.root = tk.Tk()
-        self.root.config(bg="#fff")
+        self.root.config(bg="#023047")
         #self.root.geometry("800x600")
         self.root.attributes("-fullscreen", True)
         self.root.title("Typing Speed Test")
 
 
         style = ttk.Style()
+
         style.configure("sb.TButton",
                         font=('Garamond', 25),
-                        foreground="green",
+                        foreground="#ffb703",
+                        background="#023047",
                         justify="center")
 
         style.configure("title.TLabel",
                         font=('Garamond', 40),
-                        foreground="green",
+                        foreground="#ffb703",
+                        background="#023047",
                         justify="center")
 
         style.configure("TLabel",
                         font=('Garamond', 25),
-                        foreground="black",
+                        foreground="#ffb703",
+                        background="#023047",
                         justify="center")
 
         self.res_frame = ttk.Frame(self.root)
@@ -143,7 +147,7 @@ class MyGUI:
         end_time = time.time()
         elapsed_time = end_time - self.start_time  # Calculate the time it took to type the sentence
 
-        self.res_frame.place(relx=0.5, rely=0.5, anchor='center')  # Center the frame
+        self.res_frame.place(relx=0.5, rely=0.5, anchor='center', background="000000")  # Center the frame
 
         # Count the mistakes: Original text, user input
         mistakes = count_mistakes(self.cntext["text"], self.user_input.get())
