@@ -147,7 +147,7 @@ class MyGUI:
         end_time = time.time()
         elapsed_time = end_time - self.start_time  # Calculate the time it took to type the sentence
 
-        self.res_frame.place(relx=0.5, rely=0.5, anchor='center', background="000000")  # Center the frame
+        self.res_frame.place(relx=0.5, rely=0.5, anchor='center')  # Center the frame
 
         # Count the mistakes: Original text, user input
         mistakes = count_mistakes(self.cntext["text"], self.user_input.get())
