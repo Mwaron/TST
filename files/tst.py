@@ -68,8 +68,11 @@ for line in sz:
 class MyGUI:
     def __init__(self):
 
+        bg = "#274c77"
+        fg = "#e7ecef"
+
         self.root = tk.Tk()
-        self.root.config(bg="#023047")
+        self.root.config(bg=bg)
         #self.root.geometry("800x600")
         self.root.attributes("-fullscreen", True)
         self.root.title("Typing Speed Test")
@@ -79,27 +82,52 @@ class MyGUI:
 
         style.configure("sb.TButton",
                         font=('Garamond', 25),
-                        foreground="#ffb703",
-                        background="#023047",
+                        foreground=fg,
+                        background=bg,
                         justify="center")
 
         style.configure("title.TLabel",
                         font=('Garamond', 40),
-                        foreground="#ffb703",
-                        background="#023047",
+                        foreground=fg,
+                        background=bg,
                         justify="center")
 
         style.configure("TLabel",
                         font=('Garamond', 25),
-                        foreground="#ffb703",
-                        background="#023047",
+                        foreground=fg,
+                        background=bg,
+                        justify="center")
+
+        style.configure("TFrame",
+                        font=('Garamond', 25),
+                        foreground=fg,
+                        background=bg,
                         justify="center")
 
         self.res_frame = ttk.Frame(self.root)
 
 
+        self.text = tk.Text(self.root, font=('Arial', 40), height=1, borderwidth=0, highlightthickness=0, foreground=fg, background=bg)
+        self.text.pack(padx=20, pady=50)
+        
+        # Insert the sentence
+        self.text.insert('1.0', 'Typing Speed Test')
+        
+        # Configure a tag to set the foreground color blue
+        self.text.tag_config('blue', foreground='blue')
+        
+        # Apply the tag to the word "Speed" which is characters 7 through 12 (0-based index)
+        self.text.tag_add('blue', '1.7', '1.12')
+        
+        # Disable editing to mimic a Label widget
+        self.text.config(state='disabled')
+
+
+        """
         self.Name = ttk.Label(self.root, font=('Arial', 40), text="Typing Speed Test", style="title.TLabel")
+
         self.Name.pack(padx=20, pady=50)
+        """
 
         self.center_frame = ttk.Frame(self.root)
         self.center_frame.place(relx=0.5, rely=0.5, anchor='center')  # Center the frame
